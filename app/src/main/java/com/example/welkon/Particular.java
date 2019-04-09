@@ -10,6 +10,10 @@ import com.example.welkon.fragments.FragmentList;
 
 public class Particular extends AppCompatActivity {
 
+
+    //Глобальная переменная , в которую приходит значение Id(uuid)
+    public static int UUID_INT;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +29,17 @@ public class Particular extends AppCompatActivity {
                     .commit();
         }
 
+        /*
         FragmentManager fm2 = getSupportFragmentManager();
         Fragment fragment2 = fm2.findFragmentById(R.id.detail_fragment_container);
 
         if(fragment2 == null){
             fragment2 = new FragmentContainer();
-            fm.beginTransaction()
+            fm2.beginTransaction()
                     .add(R.id.detail_fragment_container,fragment2)
                     .commit();
         }
+        */
     }
 
 }

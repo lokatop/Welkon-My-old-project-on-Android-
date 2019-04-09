@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.welkon.Adapters.ArmyAdapter.FOR_UUID;
+import static com.example.welkon.Particular.UUID_INT;
 
 public class FragmentContainer extends Fragment {
 
@@ -42,8 +43,8 @@ public class FragmentContainer extends Fragment {
     TextView title;
     TextView subTitle;
     TextView description;
-    ImageView imageView;
-    Integer id;
+    //ImageView imageView;
+
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +64,9 @@ public class FragmentContainer extends Fragment {
         subTitle = (TextView)v.findViewById(R.id.subtitle2);
         description = (TextView)v.findViewById(R.id.desc2);
         //------------------------------------
-
+        if(UUID_INT != 0 ){
+            populaterecyclerView(UUID_INT);
+        }
 
         return v;
     }
@@ -82,9 +85,10 @@ public class FragmentContainer extends Fragment {
         title.setText(mainArmy.getTitle());
         subTitle.setText(mainArmy.getSubtitle());
         description.setText(mainArmy.getDescription());
+        /*
         String namePhoto = mainArmy.getImage();
         loadImageFromAsset(namePhoto,imageView);
-
+        */
 
         String linksPhoto = mainArmy.getAllImage();
         List<String> photoLinks = GetLinkImages(linksPhoto);

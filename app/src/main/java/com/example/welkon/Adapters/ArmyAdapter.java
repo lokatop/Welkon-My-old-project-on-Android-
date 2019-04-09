@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +15,19 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.welkon.Particular;
 import com.example.welkon.interfaces.FragmentCommunication;
 import com.example.welkon.models.Army;
 import com.example.welkon.MainActivity;
 import com.example.welkon.R;
 import com.example.welkon.fragments.FragmentContainer;
+import android.support.v7.app.AppCompatActivity;
 import com.example.welkon.interfaces.FragmentCommunication;
-import com.example.welkon.models.Army;
 import java.io.IOException;
 import java.io.InputStream;
+import static com.example.welkon.Particular.UUID_INT;
 import java.util.List;
+
 
 public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
 
@@ -72,6 +77,24 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
               // int UUID = mainList.getId();
+                UUID_INT = mainList.getId();
+
+                FragmentManager fm2 = ((Particular) mContext).getSupportFragmentManager();
+                Fragment fragment2 = fm2.findFragmentById(R.id.detail_fragment_container);
+
+                if (fragment2 == null) {
+                    fragment2 = new FragmentContainer();
+                    fm2.beginTransaction()
+                            .add(R.id.detail_fragment_container,fragment2)
+                            .commit();
+                }else {
+
+                    fragment2 = new FragmentContainer();
+                    fm2.beginTransaction()
+                            .replace(R.id.detail_fragment_container,fragment2)
+                            .commit();
+
+                }
 
             }
         });
