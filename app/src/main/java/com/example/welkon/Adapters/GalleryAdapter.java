@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 
-import com.near.ru.armysensor.R;
+import com.example.welkon.R;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -67,14 +67,6 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         String namePhoto = mainList.getImage();
         loadImageFromAsset(namePhoto,holder.mainImageImgV, mContext);
 
-
-        FragmentContainer fragmentB=new FragmentContainer();
-        Bundle bundle=new Bundle();
-        String uuid = String.valueOf(mainList.getId());
-        bundle.putString(FOR_UUID,uuid);
-        fragmentB.setArguments(bundle);
-
-        /*
         //listen to single view layout click
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +75,6 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
 
             }
         });
-        */
     }
 
     @Override
@@ -93,12 +84,11 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         // each data item is just a string in this case
         public TextView mainTitleTxtV;
         public TextView mainSubtitleTxtV;
         public ImageView mainImageImgV;
-        FragmentCommunication mComminication;
 
         public View layout;
 
@@ -109,14 +99,8 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
             mainSubtitleTxtV = (TextView) v.findViewById(R.id.subTitle);
             mainImageImgV = (ImageView) v.findViewById(R.id.image);
 
-            mComminication=Communicator;
-            v.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            mComminication.respond(getAdapterPosition(), String.valueOf(mMainList.get(getAdapterPosition()).getId()));
-        }
     }
     // Provide a suitable constructor (depends on the kind of dataset)
     public ArmyAdapter(List<Army> myDataset, Context context, RecyclerView recyclerView) {

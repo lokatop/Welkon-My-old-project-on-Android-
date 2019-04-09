@@ -17,18 +17,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.near.ru.armysensor.Adapters.ArmyAdapter;
-import com.near.ru.armysensor.Adapters.GalleryAdapter;
-import com.near.ru.armysensor.R;
-import com.near.ru.armysensor.Utils.MainDBHelper;
-import com.near.ru.armysensor.models.Army;
+import com.example.welkon.Adapters.ArmyAdapter;
+import com.example.welkon.Adapters.GalleryAdapter;
+import com.example.welkon.R;
+import com.example.welkon.Utils.MainDBHelper;
+import com.example.welkon.models.Army;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.near.ru.armysensor.Adapters.ArmyAdapter.FOR_UUID;
+import static com.example.welkon.Adapters.ArmyAdapter.FOR_UUID;
 
 public class FragmentContainer extends Fragment {
 
@@ -64,16 +64,8 @@ public class FragmentContainer extends Fragment {
         description = (TextView)v.findViewById(R.id.desc2);
         //------------------------------------
 
-        Bundle bundle = this.getArguments();
-        if(bundle != null){
-            int id = bundle.getInt(FOR_UUID);
-            populaterecyclerView(id);
-        }
 
         return v;
-    }
-    public void start(int UUID){
-        populaterecyclerView(UUID);
     }
 
     public void populaterecyclerView(int id){
@@ -134,7 +126,4 @@ public class FragmentContainer extends Fragment {
         return temp;
     }
 
-    public void setUUID(int uuid){
-        id = uuid;
-    }
 }

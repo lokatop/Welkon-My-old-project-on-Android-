@@ -26,7 +26,7 @@ public class Particular extends AppCompatActivity {
         }
 
         FragmentManager fm2 = getSupportFragmentManager();
-        Fragment fragment2 = fm.findFragmentById(R.id.detail_fragment_container);
+        Fragment fragment2 = fm2.findFragmentById(R.id.detail_fragment_container);
 
         if(fragment2 == null){
             fragment2 = new FragmentContainer();

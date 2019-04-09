@@ -12,15 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.near.ru.armysensor.Adapters.ArmyAdapter;
-import com.near.ru.armysensor.R;
-import com.near.ru.armysensor.Utils.MainDBHelper;
-import com.near.ru.armysensor.interfaces.FragmentCommunication;
-import com.near.ru.armysensor.models.Army;
+import com.example.welkon.Adapters.ArmyAdapter;
+import com.example.welkon.R;
+import com.example.welkon.Utils.MainDBHelper;
+import com.example.welkon.interfaces.FragmentCommunication;
+import com.example.welkon.models.Army;
 
 import java.util.List;
 
-import static com.near.ru.armysensor.MainActivity.KEY_FOR_TEXT_FROM_BUTTON;
+import static com.example.welkon.MainActivity.KEY_FOR_TEXT_FROM_BUTTON;
 
 public class FragmentList extends Fragment {
     private RecyclerView mArmyRecyclerView;
@@ -58,31 +58,4 @@ public class FragmentList extends Fragment {
         adapter = new ArmyAdapter(mainList, getActivity(), mArmyRecyclerView);
         mArmyRecyclerView.setAdapter(adapter);
     }
-    /*
-    public interface onSomeEventListener{
-        public void someEvent(int uuid);
-    }
-    onSomeEventListener someEventListener;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity a;
-        if(context instanceof Activity){
-            a = (Activity) context;
-            try {
-                someEventListener = (onSomeEventListener) a;
-            } catch (ClassCastException e){
-                throw new ClassCastException(a.toString()+" must implement onSomeEventListener");
-            }
-        }
-    }
-    */
-
-    FragmentCommunication communication = new FragmentCommunication() {
-        @Override
-        public void respond(int position, String UUID) {
-
-        }
-    };
 }

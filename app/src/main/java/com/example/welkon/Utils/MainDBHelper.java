@@ -11,7 +11,7 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.near.ru.armysensor.models.Army;
+import com.example.welkon.models.Army;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
