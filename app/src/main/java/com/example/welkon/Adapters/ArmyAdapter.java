@@ -76,7 +76,6 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              // int UUID = mainList.getId();
                 UUID_INT = mainList.getId();
 
                 FragmentManager fm2 = ((Particular) mContext).getSupportFragmentManager();
