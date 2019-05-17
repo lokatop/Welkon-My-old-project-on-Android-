@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainDBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "db.sqlite";
+    public static final String DATABASE_NAME = "db2.sqlite";
     private static final int DATABASE_VERSION = 2 ;
     public static final String TABLE_NAME = "mytable";
     public static final String COLUMN_ID = "id";
@@ -35,7 +35,7 @@ public class MainDBHelper extends SQLiteOpenHelper {
     private final Context myContext;
     private SQLiteDatabase myDatabase;
 
-    String DBNAME = "db.sqlite";
+    String DBNAME = "db2.sqlite";
     String DBPATH;
 
     public MainDBHelper(Context context) {
