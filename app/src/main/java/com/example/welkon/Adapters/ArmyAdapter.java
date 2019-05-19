@@ -66,8 +66,8 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
 
         final Army mainList = mMainList.get(position);
-        holder.mainTitleTxtV.setText("Title: " + mainList.getTitle());
-        holder.mainSubtitleTxtV.setText("Subtitle: " + mainList.getSubtitle());
+        holder.mainTitleTxtV.setText(mainList.getTitle());
+        holder.mainSubtitleTxtV.setText(mainList.getSubtitle());
 
         String namePhoto = mainList.getImage();
         loadImageFromAsset(namePhoto,holder.mainImageImgV, mContext);
