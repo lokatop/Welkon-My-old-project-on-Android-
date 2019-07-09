@@ -300,4 +300,16 @@ tools:context=".MainActivity" >
     android:textColor="?android:attr/panelBackground"
     app:layout_constraintStart_toEndOf="@+id/button11"
     app:layout_constraintTop_toBottomOf="@+id/button9" />
+
+    <ImageView
+        android:id="@+id/imageViewV"
+        android:layout_width="102dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="StrihActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_search" />
+
 </android.support.constraint.ConstraintLayout>
