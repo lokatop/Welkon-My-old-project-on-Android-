@@ -14,6 +14,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class BasicScan extends BaseScannerActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
+    public static String KEY_FOR_NUMBER_OF_QUIZ = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,58 +45,49 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
         Toast.makeText(this, "Contents = " + rawResult.getText() +
                 ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(this, QuizActivity.class);
         switch (rawResult.getText()){
-            /*
+
             case "1":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"1");
                 startActivity(intent);
                 break;
             case "2":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"2");
                 startActivity(intent);
                 break;
             case "3":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"3");
                 startActivity(intent);
                 break;
             case "4":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"4");
                 startActivity(intent);
                 break;
             case "5":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"5");
                 startActivity(intent);
                 break;
             case "6":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"6");
                 startActivity(intent);
                 break;
             case "7":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"7");
                 startActivity(intent);
                 break;
             case "8":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"8");
                 startActivity(intent);
                 break;
             case "9":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"9");
                 startActivity(intent);
                 break;
             case "10":
-                Intent intent = new Intent(this, clazz);
-                intent.putExtra(KEY_FOR_TEXT_FROM_BUTTON,s);
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"10");
                 startActivity(intent);
-                break;*/
+                break;
 
         }
         // Note:
