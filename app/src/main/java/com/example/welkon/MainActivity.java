@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,4 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 return;
         }
     }
+/*
+    public void onlytu(View view) {
+        Intent intent = new Intent(this, QuizActivity.class);
+        intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"10");
+        startActivity(intent);
+    }
+*/
 }

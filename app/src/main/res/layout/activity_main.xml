@@ -142,19 +142,19 @@ tools:context=".MainActivity" >
     app:layout_constraintStart_toEndOf="@+id/button7"
     app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-<Button
-    android:id="@+id/button10"
-    android:layout_width="201dp"
-    android:layout_height="113dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:background="@android:color/transparent"
-    android:onClick="ListOfModels"
-    android:text="ГО"
-    android:textAllCaps="false"
-    android:textColor="?android:attr/panelBackground"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/button6" />
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="205dp"
+        android:layout_height="113dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:onClick="ListOfModels"
+        android:text="ГО"
+        android:textAllCaps="false"
+        android:textColor="?android:attr/panelBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 
 <Button
     android:id="@+id/button11"
@@ -305,13 +305,14 @@ tools:context=".MainActivity" >
         android:id="@+id/imageViewV"
         android:layout_width="102dp"
         android:layout_height="102dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="StrihActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.907"
         app:srcCompat="@android:drawable/ic_menu_search" />
 
 </android.support.constraint.ConstraintLayout>
