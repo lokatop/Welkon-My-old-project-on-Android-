@@ -1,27 +1,19 @@
 package com.example.welkon;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
 import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
 
@@ -33,7 +25,7 @@ public class QuizActivity extends AppCompatActivity {
     TextView tvQuestion;
     TextView tvResult;
     int[] trueResult;
-    ArrayList<Integer> SelectedResult;
+    ArrayList<Integer> SelectedResult = new ArrayList<>();
     int selected[];
 
     int selectedTrue[];
@@ -42,11 +34,12 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
+        getSupportActionBar().hide();
         // получаем элемент ListView
         final ListView lvAnswers = (ListView) findViewById(R.id.lvAnswers);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         tvResult   = (TextView) findViewById(R.id.tvResult);
+
 
         int[] numberOfAnswersId =
                 {R.array.answers1,R.array.answers2,
@@ -103,8 +96,6 @@ public class QuizActivity extends AppCompatActivity {
                         if (sparseBooleanArray.valueAt(i)){
                             selected[i] = sparseBooleanArray.keyAt(i)+1;
                         }
-
-                        //selected[i] = sparseBooleanArray.keyAt(i)+1;
                     }
                 }
             });
@@ -114,22 +105,31 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void BtnCheck(View view) {
-        SelectedResult = new ArrayList<>();
+        if(selected != null){
+            //очищаем перед повторным использованием
+            SelectedResult.clear();
 
-        for (int i = 0; i < selected.length;i++){
-            if(selected[i] != 0){SelectedResult.add(selected[i]);}
-        }
+            //смотрим количество выбранных элементов(при 0 - false) и выбранные ответы записываем
+            //в другой ArrayList
+            for (int i = 0; i < selected.length;i++){
+                if(selected[i] != 0){SelectedResult.add(selected[i]);}
+            }
 
-        int[] trueResFinal = new int[SelectedResult.size()];
-        int i = 0;
-        for (int ar: SelectedResult){
-            trueResFinal[i] = ar;
-            i++;
-        }
-        if (Arrays.equals(trueResult, trueResFinal)){
-            tvResult.setText("Все правильно!");
-        }else {
-            tvResult.setText("Неправильный ответ");
+            //создаем массив чтобы не писать лишнего и просто сравнить два массива int
+            int[] trueResFinal = new int[SelectedResult.size()];
+            int i = 0;
+            for (int ar: SelectedResult){
+                trueResFinal[i] = ar;
+                i++;
+            }
+            if (Arrays.equals(trueResult, trueResFinal)){
+
+                tvResult.setText("Все правильно!");
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.size_text);
+                tvResult.startAnimation(animation);
+            }else {
+                tvResult.setText("Неправильный ответ");
+            }
         }
     }
 }

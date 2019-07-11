@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".QuizActivity"></activity>
         <activity android:name=".BasicScan" />
-        <activity android:name=".ScanAct" />
         <activity
             android:name=".Particular"
             android:screenOrientation="landscape" />
