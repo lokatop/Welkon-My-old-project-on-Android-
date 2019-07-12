@@ -47,6 +47,7 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
                 ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, QuizActivity.class);
+        Intent intent2 = new Intent(this, VideoActivity.class);
         switch (rawResult.getText()){
 
             case "1":
@@ -88,6 +89,14 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
             case "10":
                 intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"10");
                 startActivity(intent);
+                break;
+            case "11":
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
+                startActivity(intent2);
+                break;
+            case "12":
+                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
+                startActivity(intent2);
                 break;
 
         }

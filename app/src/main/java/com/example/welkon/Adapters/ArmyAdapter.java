@@ -72,6 +72,16 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         String namePhoto = mainList.getImage();
         loadImageFromAsset(namePhoto,holder.mainImageImgV, mContext);
 
+        UUID_INT = mMainList.get(0).getId();
+        FragmentManager fm2 = ((Particular) mContext).getSupportFragmentManager();
+        Fragment fragment2 = fm2.findFragmentById(R.id.detail_fragment_container);
+        if (fragment2 == null) {
+            fragment2 = new FragmentContainer();
+            fm2.beginTransaction()
+                    .add(R.id.detail_fragment_container,fragment2)
+                    .commit();
+        }
+
         //listen to single view layout click
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
