@@ -91,11 +91,15 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
                 startActivity(intent);
                 break;
             case "11":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
+                intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
                 startActivity(intent2);
                 break;
             case "12":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
+                intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
+                startActivity(intent2);
+                break;
+            case "13":
+                intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"13");
                 startActivity(intent2);
                 break;
 

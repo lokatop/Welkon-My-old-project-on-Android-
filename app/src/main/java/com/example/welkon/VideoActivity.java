@@ -16,7 +16,6 @@ public class VideoActivity extends AppCompatActivity {
     private VideoView videoView;
     private int position = 0;
     private MediaController mediaController;
-    private int key = 11;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +25,7 @@ public class VideoActivity extends AppCompatActivity {
         //---------Получаем данные из сканера
         Intent intent = getIntent();
         String keyQuestion = intent.getStringExtra(KEY_FOR_NUMBER_OF_QUIZ);
-        if (keyQuestion != null) {
-            // получаем ресурс
-            key = Integer.parseInt(keyQuestion);
-        }
+        int key = Integer.parseInt(keyQuestion);
         //------------------------------------
 
 
@@ -42,16 +38,22 @@ public class VideoActivity extends AppCompatActivity {
             mediaController.setAnchorView(videoView);
             // Set MediaController for VideoView
             videoView.setMediaController(mediaController);
+
+
+            //String SrcPath = "/mnt/sdcard/final.mp4";
+            //videoView1.setVideoPath(SrcPath);
         }
         try {
-            // ID of video file.
             if (key == 11){
                 int id = this.getRawResIdByName("example");
                 videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
-            }else{
+            }else if (key == 12){
                 //ввести что-то свое
-                //int id = this.getRawResIdByName("example");
-                //videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
+                int id = this.getRawResIdByName("example2");
+                videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
+            }else if (key == 13){
+                int id = this.getRawResIdByName("ex");
+                videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
             }
 
         } catch (Exception e) {
@@ -59,6 +61,7 @@ public class VideoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        videoView.setMediaController(new MediaController(this));
         videoView.requestFocus();
 
         // When the video file ready for playback.

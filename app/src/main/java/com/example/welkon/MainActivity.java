@@ -43,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
         launchActivity(BasicScan.class);
     }
 
-/*
-    public void launchSimpleActivity(View v) {
-        launchActivity(BasicScan.class);
-    }*/
 
     public void launchActivity(Class<?> clss) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
