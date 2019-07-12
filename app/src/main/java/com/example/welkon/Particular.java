@@ -29,18 +29,6 @@ public class Particular extends AppCompatActivity {
                     .add(R.id.fragment_list,fragment)
                     .commit();
         }
-
-        /*
-        FragmentManager fm2 = getSupportFragmentManager();
-        Fragment fragment2 = fm2.findFragmentById(R.id.detail_fragment_container);
-
-        if(fragment2 == null){
-            fragment2 = new FragmentContainer();
-            fm2.beginTransaction()
-                    .add(R.id.detail_fragment_container,fragment2)
-                    .commit();
-        }
-        */
     }
 
 }

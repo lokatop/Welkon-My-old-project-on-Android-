@@ -23,7 +23,7 @@ import java.util.List;
 public class MainDBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "db2.sqlite";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     public static final String TABLE_NAME = "mytable";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PERSON_TITLE = "title";
