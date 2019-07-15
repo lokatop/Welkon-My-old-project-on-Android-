@@ -2,7 +2,6 @@ package com.example.welkon;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -47,7 +46,8 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
                 ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, QuizActivity.class);
-        Intent intent2 = new Intent(this, VideoActivity.class);
+        //Intent intent2 = new Intent(this, VideoActivity.class);
+        Intent intent3 = new Intent(this, AudioActivity.class);
         switch (rawResult.getText()){
 
             case "1":
@@ -91,16 +91,24 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
                 startActivity(intent);
                 break;
             case "11":
-                intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
-                startActivity(intent2);
+                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
+                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
+                startActivity(intent3);
                 break;
             case "12":
-                intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
-                startActivity(intent2);
+                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
+                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
+                startActivity(intent3);
                 break;
             case "13":
-                intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"13");
-                startActivity(intent2);
+                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"13");
+                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"13");
+                startActivity(intent3);
+                break;
+            case "14":
+                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"14");
+                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"14");
+                startActivity(intent3);
                 break;
 
         }

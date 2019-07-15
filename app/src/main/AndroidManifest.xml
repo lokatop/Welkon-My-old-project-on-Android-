@@ -3,6 +3,7 @@
     package="com.example.welkon">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AudioActivity"></activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.Launcher">
@@ -23,14 +25,9 @@
         <activity android:name=".VideoActivity" />
         <activity android:name=".QuizActivity" />
         <activity android:name=".BasicScan" />
-        <activity
-            android:name=".Particular"/>
-            //android:screenOrientation="landscape" />
-        <activity
-            android:name=".General"/>
-            //android:screenOrientation="landscape"
-
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".Particular" />
+        <activity android:name=".General" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

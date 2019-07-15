@@ -1,9 +1,13 @@
 package com.example.welkon;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.models.Army;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String KEY_FOR_TEXT_FROM_BUTTON = "buttonKey";
     private static final int ZXING_CAMERA_PERMISSION = 1;
+    private static final int PERMISSION_REQUEST_CODE = 100;
     private Class<?> mClss;
     private MainDBHelper dbHelper;
 
@@ -36,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (!checkPermission()) {requestPermission();}
+            }
+        }
+
         dbHelper = new MainDBHelper(this);
 
         try {
@@ -44,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         }catch (SQLiteException e){
             e.printStackTrace();
         }
-        mainList = dbHelper.exMainList(1);
+        dbHelper.close();
+        //mainList = dbHelper.exMainList(1);
 
     }
 
@@ -62,6 +76,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void StrihActivity(View view){
         launchActivity(BasicScan.class);
+    }
+
+
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Toast.makeText(this, "Write External Storage permission allows us to save files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
     }
 
 
@@ -90,13 +123,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
                 return;
+
         }
     }
-/*
-    public void onlytu(View view) {
-        Intent intent = new Intent(this, QuizActivity.class);
-        intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"10");
+
+    public void onlytu(Class clazz) {
+        Intent intent = new Intent(this, clazz);
+        intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
         startActivity(intent);
     }
-*/
+
 }
