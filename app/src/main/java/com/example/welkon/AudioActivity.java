@@ -9,17 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
 
@@ -34,7 +28,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_audio);
 
 
         //---------Получаем данные из сканера
