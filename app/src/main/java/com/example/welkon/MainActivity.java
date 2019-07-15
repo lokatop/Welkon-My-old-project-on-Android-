@@ -3,6 +3,7 @@ package com.example.welkon;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteException;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.welkon.Utils.MainDBHelper;
+import com.example.welkon.models.Army;
+
+import java.io.IOException;
+import java.util.List;
 
 import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
 
@@ -19,12 +26,26 @@ public class MainActivity extends AppCompatActivity {
     public static String KEY_FOR_TEXT_FROM_BUTTON = "buttonKey";
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
+    private MainDBHelper dbHelper;
+
+    public Army mainList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+        dbHelper = new MainDBHelper(this);
+
+        try {
+            dbHelper.checkAndCopyDatabase();
+            dbHelper.openDatabase();
+        }catch (SQLiteException e){
+            e.printStackTrace();
+        }
+        mainList = dbHelper.exMainList(1);
+
     }
 
     public void newPage(Class clazz,String s){
