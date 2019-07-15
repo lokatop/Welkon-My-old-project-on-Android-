@@ -97,16 +97,6 @@ public class FragmentContainer extends Fragment {
         mRecyclerView.setAdapter(adapter);
     }
 
-    public void loadImageFromAsset(String namePhoto, ImageView imageView1) {
-        try {
-            InputStream ims = getActivity().getAssets().open(namePhoto+".jpg");
-            Drawable d = Drawable.createFromStream(ims, null);
-            imageView1.setImageDrawable(d);
-        }
-        catch(IOException ex) {
-            return;
-        }
-    }
     public static List<String> GetLinkImages(String links){
         List<String> temp = new ArrayList<String>();
         char[] charLinks = links.toCharArray();

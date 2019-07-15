@@ -3,7 +3,9 @@ package com.example.welkon.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -50,6 +52,7 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         ViewHolder vh = new ViewHolder(v,mCommicator);
         return vh;
     }
+    /*
     public void loadImageFromAsset(String namePhoto, ImageView imageView1, Context context) {
         try {
             InputStream ims = context.getAssets().open(namePhoto+".jpg");
@@ -59,6 +62,12 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         catch(IOException ex) {
             return;
         }
+    }
+    */
+    public void loadImageFromData(String namePhoto, ImageView imageView1, Context context) {
+        String path = Environment.getExternalStorageDirectory().toString();
+        String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
+        imageView1.setImageURI(Uri.parse(imagePath));
     }
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
@@ -70,7 +79,7 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         holder.mainSubtitleTxtV.setText(mainList.getSubtitle());
 
         String namePhoto = mainList.getImage();
-        loadImageFromAsset(namePhoto,holder.mainImageImgV, mContext);
+        loadImageFromData(namePhoto,holder.mainImageImgV, mContext);
 
         UUID_INT = mMainList.get(0).getId();
         FragmentManager fm2 = ((Particular) mContext).getSupportFragmentManager();
