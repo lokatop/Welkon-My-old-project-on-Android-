@@ -38,9 +38,14 @@ public class MainDBHelper extends SQLiteOpenHelper {
     String DBNAME = "db2.sqlite";
     String DBPATH;
 
+
+    private static String path = Environment.getExternalStorageDirectory().toString();
+    private static String DB_PATH = path + "/AudioArmy/"+DATABASE_NAME;
+    // путь к базе данных вашего приложения
+
     public MainDBHelper(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
-        DBPATH = context.getApplicationInfo().dataDir + "/databases/";
+        //DBPATH = context.getApplicationInfo().dataDir + "/databases/";
         this.myContext = context;
     }
 
@@ -60,15 +65,15 @@ public class MainDBHelper extends SQLiteOpenHelper {
     }
 
     public void openDatabase(){
-        String myPath = DBPATH + DATABASE_NAME;
-        myDatabase = SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.OPEN_READWRITE);
+        //String myPath = DBPATH + DATABASE_NAME;
+        myDatabase = SQLiteDatabase.openDatabase(DB_PATH,null,SQLiteDatabase.OPEN_READWRITE);
     }
 
     public boolean checkDatabase(){
         SQLiteDatabase checkDB = null;
         try {
-            String myPath = DBPATH + DATABASE_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.OPEN_READWRITE);
+            //String myPath = DBPATH + DATABASE_NAME;
+            checkDB = SQLiteDatabase.openDatabase(DB_PATH,null,SQLiteDatabase.OPEN_READWRITE);
         }catch (SQLiteException e){
 
         }
@@ -86,8 +91,8 @@ public class MainDBHelper extends SQLiteOpenHelper {
 
     public void copyDataBase() throws IOException{
         InputStream myInput = myContext.getAssets().open(DATABASE_NAME);
-        String outFileName = DBPATH + DATABASE_NAME;
-        OutputStream myOutput = new FileOutputStream(outFileName);
+        //String outFileName = DBPATH + DATABASE_NAME;
+        OutputStream myOutput = new FileOutputStream(DB_PATH);
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer))>0){
