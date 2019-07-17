@@ -1,13 +1,11 @@
 package com.example.welkon;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.welkon.Utils.DBHelper;
-import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.models.Army;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
 

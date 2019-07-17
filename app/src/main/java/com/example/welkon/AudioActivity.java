@@ -24,6 +24,8 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
     private MediaController mediaController;
     private String audioFile;
 
+    private int key = 0;
+
     private Handler handler = new Handler();
 
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
         //---------Получаем данные из сканера
         Intent intent = getIntent();
         String keyQuestion = intent.getStringExtra(KEY_FOR_NUMBER_OF_QUIZ);
-        int key = Integer.parseInt(keyQuestion);
+        key = Integer.parseInt(keyQuestion);
         String nameAudio = "";
         String namePhoto = "";
         //------------------------------------
@@ -42,55 +44,35 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
         String imagePath = path + "/AudioArmy/";
 
         ImageView imageView = (ImageView) findViewById(R.id.ivAudio);
+        if(key != 0){
+            int forNumberName = key - 10;
+            String forName = forNumberName+"";
+            nameAudio = "a"+forName+".mp3";
+            namePhoto = "a"+forName+".jpg";
+            imageView.setImageURI(Uri.parse(imagePath+namePhoto));
 
-        switch (key){
-            case 11:
-                nameAudio = "a1.mp3";
-                namePhoto = "a1.jpg";
-                imageView.setImageURI(Uri.parse(imagePath+namePhoto));
+            audioFile =  path + "/AudioArmy/"+nameAudio;
+            ((TextView)findViewById(R.id.now_playing_text)).setText(nameAudio);
 
-                break;
-            case 12:
-                nameAudio = "a2.mp3";
-                namePhoto = "a2.jpg";
-                imageView.setImageURI(Uri.parse(imagePath+namePhoto));
-                break;
-            case 13:
-                nameAudio = "a3.mp3";
-                namePhoto = "a3.jpg";
-                imageView.setImageURI(Uri.parse(imagePath+namePhoto));
-                break;
-            case 14:
-                nameAudio = "a4.mp3";
-                namePhoto = "a4.jpg";
-                imageView.setImageURI(Uri.parse(imagePath+namePhoto));
-                break;
-        }
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnPreparedListener(this);
 
-        audioFile =  path + "/AudioArmy/"+nameAudio;
-        ((TextView)findViewById(R.id.now_playing_text)).setText(nameAudio);
+            mediaController = new MediaController(this){
+                @Override
+                public void show() {
+                    super.show(0);//Default no auto hide timeout
+                }
+            };
+            mediaController.requestFocus();
 
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setOnPreparedListener(this);
-
-        mediaController = new MediaController(this){
-            @Override
-            public void show() {
-                super.show(0);//Default no auto hide timeout
+            try {
+                mediaPlayer.setDataSource(audioFile);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            } catch (IOException e) {
+                Log.e(TAG, "Could not open file " + audioFile + " for playback.", e);
             }
-        };
-        mediaController.requestFocus();
-
-
-        try {
-            mediaPlayer.setDataSource(audioFile);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            Log.e(TAG, "Could not open file " + audioFile + " for playback.", e);
         }
-
-
     }
 
     @Override

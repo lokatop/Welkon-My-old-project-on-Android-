@@ -3,6 +3,7 @@ package com.example.welkon;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,10 @@ public class VideoActivity extends AppCompatActivity {
     private VideoView videoView;
     private int position = 0;
     private MediaController mediaController;
+
+    private int key = 0;
+    private String videoFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,66 +30,61 @@ public class VideoActivity extends AppCompatActivity {
         //---------Получаем данные из сканера
         Intent intent = getIntent();
         String keyQuestion = intent.getStringExtra(KEY_FOR_NUMBER_OF_QUIZ);
-        int key = Integer.parseInt(keyQuestion);
-        //------------------------------------
-
-
+        key = Integer.parseInt(keyQuestion);
         videoView = (VideoView) findViewById(R.id.videoView);
+        //------------------------------------
+        ;
+        String nameVideo = "";
+        //------------------------------------
+        String path = Environment.getExternalStorageDirectory().toString();
+        String videoPath = path + "/AudioArmy/video/";
 
-        // Set the media controller buttons
-        if (mediaController == null) {
-            mediaController = new MediaController(VideoActivity.this);
-            // Set the videoView that acts as the anchor for the MediaController.
-            mediaController.setAnchorView(videoView);
-            // Set MediaController for VideoView
-            videoView.setMediaController(mediaController);
+        if(key != 0) {
+            int forNumberName = key - 25;
+            String forName = forNumberName + "";
+            nameVideo = "v" + forName + ".mp4";
+            videoFile = path + "/AudioArmy/" + nameVideo;
+
+            // Set the media controller buttons
+            if (mediaController == null) {
+                mediaController = new MediaController(VideoActivity.this);
+                // Set the videoView that acts as the anchor for the MediaController.
+                mediaController.setAnchorView(videoView);
+                // Set MediaController for VideoView
+                videoView.setMediaController(mediaController);
 
 
-            //String SrcPath = "/mnt/sdcard/final.mp4";
-            //videoView1.setVideoPath(SrcPath);
-        }
-        try {
-            if (key == 11){
-                int id = this.getRawResIdByName("example");
-                videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
-            }else if (key == 12){
-                //ввести что-то свое
-                int id = this.getRawResIdByName("example2");
-                videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
-            }else if (key == 13){
-                int id = this.getRawResIdByName("ex");
-                videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
+                //String SrcPath = "/mnt/sdcard/final.mp4";
+                //videoView1.setVideoPath(SrcPath);
             }
 
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
+            videoView.setVideoURI(Uri.parse(videoPath+nameVideo));
 
-        videoView.setMediaController(new MediaController(this));
-        videoView.requestFocus();
+            videoView.setMediaController(new MediaController(this));
+            videoView.requestFocus();
 
-        // When the video file ready for playback.
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            // When the video file ready for playback.
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
-            public void onPrepared(MediaPlayer mediaPlayer) {
+                public void onPrepared(MediaPlayer mediaPlayer) {
 
-                videoView.seekTo(position);
-                if (position == 0) {
-                    videoView.start();
-                }
-
-                // When video Screen change size.
-                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-                    @Override
-                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-
-                        // Re-Set the videoView that acts as the anchor for the MediaController
-                        mediaController.setAnchorView(videoView);
+                    videoView.seekTo(position);
+                    if (position == 0) {
+                        videoView.start();
                     }
-                });
-            }
-        });
+
+                    // When video Screen change size.
+                    mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+                        @Override
+                        public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+
+                            // Re-Set the videoView that acts as the anchor for the MediaController
+                            mediaController.setAnchorView(videoView);
+                        }
+                    });
+                }
+            });
+        }
     }
     // Find ID corresponding to the name of the resource (in the directory raw).
     public int getRawResIdByName(String resName) {

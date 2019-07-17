@@ -46,72 +46,28 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
                 ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, QuizActivity.class);
-        //Intent intent2 = new Intent(this, VideoActivity.class);
+        Intent intent2 = new Intent(this, VideoActivity.class);
         Intent intent3 = new Intent(this, AudioActivity.class);
-        switch (rawResult.getText()){
 
-            case "1":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"1");
-                startActivity(intent);
-                break;
-            case "2":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"2");
-                startActivity(intent);
-                break;
-            case "3":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"3");
-                startActivity(intent);
-                break;
-            case "4":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"4");
-                startActivity(intent);
-                break;
-            case "5":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"5");
-                startActivity(intent);
-                break;
-            case "6":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"6");
-                startActivity(intent);
-                break;
-            case "7":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"7");
-                startActivity(intent);
-                break;
-            case "8":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"8");
-                startActivity(intent);
-                break;
-            case "9":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"9");
-                startActivity(intent);
-                break;
-            case "10":
-                intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"10");
-                startActivity(intent);
-                break;
-            case "11":
-                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
-                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
-                startActivity(intent3);
-                break;
-            case "12":
-                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
-                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"12");
-                startActivity(intent3);
-                break;
-            case "13":
-                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"13");
-                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"13");
-                startActivity(intent3);
-                break;
-            case "14":
-                //intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"14");
-                intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"14");
-                startActivity(intent3);
-                break;
-
+        String result = rawResult.getText();
+        int key = Integer.parseInt(result);
+        //В первом случае отправляем в тест
+        if (key > 0 && key <= 10){
+            intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,result);
+            startActivity(intent);
         }
+        //ВО втором в аудио
+        else if(key > 10 && key <= 25){
+            intent3.putExtra(KEY_FOR_NUMBER_OF_QUIZ,result);
+            startActivity(intent3);
+        }
+        //В третьем в видео
+        else if(key > 25 && key <= 30){
+            intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,result);
+            startActivity(intent2);
+        }
+        else {Toast.makeText(this,"Данный Qr код не поддерживается",Toast.LENGTH_SHORT).show();}
+
         // Note:
         // * Wait 2 seconds to resume the preview.
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.

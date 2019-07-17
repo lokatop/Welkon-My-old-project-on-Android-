@@ -1,35 +1,23 @@
 package com.example.welkon.fragments;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteException;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.Adapters.GalleryAdapter;
 import com.example.welkon.R;
 import com.example.welkon.Utils.DBHelper;
-import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.models.Army;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.welkon.Adapters.ArmyAdapter.FOR_UUID;
 import static com.example.welkon.Particular.UUID_INT;
 
 public class FragmentContainer extends Fragment {
