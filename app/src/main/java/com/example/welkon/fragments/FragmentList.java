@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.R;
+import com.example.welkon.Utils.DBHelper;
 import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.interfaces.FragmentCommunication;
 import com.example.welkon.models.Army;
@@ -25,7 +26,7 @@ import static com.example.welkon.MainActivity.KEY_FOR_TEXT_FROM_BUTTON;
 public class FragmentList extends Fragment {
     private RecyclerView mArmyRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private MainDBHelper dbHelper;
+    private DBHelper dbHelper;
     private ArmyAdapter adapter;
     // В этом листе хранится
     public static List<Army> mainList;
@@ -46,10 +47,10 @@ public class FragmentList extends Fragment {
         return view;
     }
     private void populaterecyclerView(String fromIntent){
-        dbHelper = new MainDBHelper(getActivity());
+        dbHelper = new DBHelper(getActivity());
 
         try {
-            dbHelper.checkAndCopyDatabase();
+            dbHelper.checkDatabase();
             dbHelper.openDatabase();
         }catch (SQLiteException e){
             e.printStackTrace();

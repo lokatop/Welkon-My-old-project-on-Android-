@@ -12,10 +12,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.welkon.Utils.DBHelper;
 import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.models.Army;
 
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private static final int PERMISSION_REQUEST_CODE = 100;
     private Class<?> mClss;
-    private MainDBHelper dbHelper;
+    //private MainDBHelper dbHelper;
+    private DBHelper dbHelper;
 
     public Army mainList;
 
@@ -45,17 +48,20 @@ public class MainActivity extends AppCompatActivity {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             if (Build.VERSION.SDK_INT >= 23) {
-                if (!checkPermission()) {requestPermission();}
+                if (!checkPermission()) {requestPermission();requestPermissionWrite();}
             }
         }
 
-        dbHelper = new MainDBHelper(this);
+        dbHelper = new DBHelper(this);
+        boolean check = false;
 
         try {
-            dbHelper.checkAndCopyDatabase();
-            dbHelper.openDatabase();
+            check = dbHelper.checkDatabase();
         }catch (SQLiteException e){
             e.printStackTrace();
+        }
+        if (check){
+            Log.e("good","Все работает");
         }
         dbHelper.close();
         //mainList = dbHelper.exMainList(1);
@@ -91,9 +97,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Toast.makeText(this, "Write External Storage permission allows us to save files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "read External Storage permission allows us to save files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
+    }
+    private void requestPermissionWrite() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(this, "Write External Storage permission allows us to save files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
 

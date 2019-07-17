@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.Adapters.GalleryAdapter;
 import com.example.welkon.R;
+import com.example.welkon.Utils.DBHelper;
 import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.models.Army;
 
@@ -35,7 +36,7 @@ public class FragmentContainer extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private MainDBHelper dbHelper;
+    private DBHelper dbHelper;
     private GalleryAdapter adapter;
     // В этом листе хранится
     public static List<Army> mainList;
@@ -72,10 +73,10 @@ public class FragmentContainer extends Fragment {
     }
 
     public void populaterecyclerView(int id){
-        dbHelper = new MainDBHelper(getActivity());
+        dbHelper = new DBHelper(getActivity());
 
         try {
-            dbHelper.checkAndCopyDatabase();
+            dbHelper.checkDatabase();
             dbHelper.openDatabase();
         }catch (SQLiteException e){
             e.printStackTrace();
