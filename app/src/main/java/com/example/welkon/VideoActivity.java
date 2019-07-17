@@ -43,7 +43,7 @@ public class VideoActivity extends AppCompatActivity {
             int forNumberName = key - 25;
             String forName = forNumberName + "";
             nameVideo = "v" + forName + ".mp4";
-            videoFile = path + "/AudioArmy/" + nameVideo;
+            videoFile = path + "/AudioArmy/video/" + nameVideo;
 
             // Set the media controller buttons
             if (mediaController == null) {

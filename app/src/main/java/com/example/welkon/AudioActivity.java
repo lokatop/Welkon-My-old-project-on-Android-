@@ -41,7 +41,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
         String namePhoto = "";
         //------------------------------------
         String path = Environment.getExternalStorageDirectory().toString();
-        String imagePath = path + "/AudioArmy/";
+        String imagePath = path + "/AudioArmy/audio/";
 
         ImageView imageView = (ImageView) findViewById(R.id.ivAudio);
         if(key != 0){
@@ -51,7 +51,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
             namePhoto = "a"+forName+".jpg";
             imageView.setImageURI(Uri.parse(imagePath+namePhoto));
 
-            audioFile =  path + "/AudioArmy/"+nameAudio;
+            audioFile =  path + "/AudioArmy/audio/"+nameAudio;
             ((TextView)findViewById(R.id.now_playing_text)).setText(nameAudio);
 
             mediaPlayer = new MediaPlayer();
