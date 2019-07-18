@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.Adapters.GalleryAdapter;
 import com.example.welkon.R;
 import com.example.welkon.Utils.DBHelper;
+import com.example.welkon.Utils.MainDBHelper;
+import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.models.Army;
 
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ public class FragmentContainer extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private DBHelper dbHelper;
+    private MainDBHelper2 dbHelper2;
     private GalleryAdapter adapter;
     // В этом листе хранится
     public static List<Army> mainList;
@@ -61,29 +64,25 @@ public class FragmentContainer extends Fragment {
     }
 
     public void populaterecyclerView(int id){
-        dbHelper = new DBHelper(getActivity());
+        dbHelper2 = new MainDBHelper2(getActivity());
 
         try {
-            dbHelper.checkDatabase();
-            dbHelper.openDatabase();
+            dbHelper2.checkAndCopyDatabase();
+            dbHelper2.openDatabase();
         }catch (SQLiteException e){
             e.printStackTrace();
         }
-        mainArmy = dbHelper.exMainList(id);
+        mainArmy = dbHelper2.exMainList(id);
 
         title.setText(mainArmy.getTitle());
         subTitle.setText(mainArmy.getSubtitle());
         description.setText(mainArmy.getDescription());
-        /*
-        String namePhoto = mainArmy.getImage();
-        loadImageFromAsset(namePhoto,imageView);
-        */
-
         String linksPhoto = mainArmy.getAllImage();
         List<String> photoLinks = GetLinkImages(linksPhoto);
 
         adapter = new GalleryAdapter(photoLinks, getActivity(), mRecyclerView);
         mRecyclerView.setAdapter(adapter);
+
     }
 
     public static List<String> GetLinkImages(String links){

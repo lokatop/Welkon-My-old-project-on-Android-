@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.welkon.Utils.DBHelper;
+import com.example.welkon.Utils.MainDBHelper;
+import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.models.Army;
 
 import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private Class<?> mClss;
     //private MainDBHelper dbHelper;
-    private DBHelper dbHelper;
+    private MainDBHelper2 dbHelper2;
 
     public Army mainList;
 
@@ -41,23 +43,20 @@ public class MainActivity extends AppCompatActivity {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             if (Build.VERSION.SDK_INT >= 23) {
-                if (!checkPermission()) {requestPermission();requestPermissionWrite();}
+                if (!checkPermission()) {requestPermissionWrite();}
             }
         }
 
-        dbHelper = new DBHelper(this);
-        boolean check = false;
+
+        dbHelper2 = new MainDBHelper2(this);
 
         try {
-            check = dbHelper.checkDatabase();
+            dbHelper2.checkAndCopyDatabase();
+            dbHelper2.openDatabase();
         }catch (SQLiteException e){
             e.printStackTrace();
         }
-        if (check){
-            Log.e("good","Все работает");
-        }
-        dbHelper.close();
-        //mainList = dbHelper.exMainList(1);
+        dbHelper2.close();
 
     }
 
@@ -89,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Toast.makeText(this, "read External Storage permission allows us to save files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
     private void requestPermissionWrite() {
@@ -133,10 +132,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onlytu(Class clazz) {
-        Intent intent = new Intent(this, clazz);
-        intent.putExtra(KEY_FOR_NUMBER_OF_QUIZ,"11");
-        startActivity(intent);
-    }
 
 }
