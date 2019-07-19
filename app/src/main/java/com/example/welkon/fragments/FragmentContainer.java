@@ -1,13 +1,17 @@
 package com.example.welkon.fragments;
 
 import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.welkon.Adapters.ArmyAdapter;
@@ -41,6 +45,15 @@ public class FragmentContainer extends Fragment {
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_container,null);
+
+        ScrollView scrollView = (ScrollView)v.findViewById(R.id.scrlContainer);
+        //LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.LinLoy);
+
+
+        Drawable myImg = ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.embllem22);
+        myImg.setAlpha(60);
+        scrollView.setBackground(myImg);
+        //linearLayout.setBackground(myImg);
 
         //---------------------------------------
         //initialize the variables

@@ -3,6 +3,7 @@ package com.example.welkon;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Environment;
@@ -10,18 +11,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.welkon.Utils.DBHelper;
-import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.models.Army;
-
-import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -128,6 +123,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return;
         }
+    }
+
+
+
+    boolean isLarge() {
+        return (getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
 
