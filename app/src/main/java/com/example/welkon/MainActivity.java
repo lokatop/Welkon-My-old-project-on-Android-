@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         dbHelper2 = new MainDBHelper2(this);
-
         try {
             dbHelper2.checkAndCopyDatabase();
             dbHelper2.openDatabase();
@@ -128,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                 }
                 return;
-
         }
     }
 

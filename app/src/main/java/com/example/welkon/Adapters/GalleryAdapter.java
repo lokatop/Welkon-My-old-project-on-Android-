@@ -41,19 +41,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //loadImageFromAsset(mLinks.get(position),holder.galleryImage, mContext);
         loadImageFromData(mLinks.get(position),holder.galleryImage, mContext);
 
-/*
-        //listen to single view layout click
-        holder.galleryImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                mContext.startActivity(intent);
-            }
-        });
-*/
     }
 
     @Override
