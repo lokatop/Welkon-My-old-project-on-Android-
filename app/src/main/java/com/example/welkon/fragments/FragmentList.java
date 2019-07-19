@@ -42,37 +42,9 @@ public class FragmentList extends Fragment {
 
         Intent intent = getActivity().getIntent();
         String fIntent = intent.getStringExtra(KEY_FOR_TEXT_FROM_BUTTON);
-        //populaterecyclerView(fIntent);
-        //populaterecyclerViewExternal(fIntent);
         populaterecyclerView2(fIntent);
 
         return view;
-    }
-    private void populaterecyclerView(String fromIntent){
-        dbHelper = new MainDBHelper(getActivity());
-
-        try {
-            dbHelper.checkAndCopyDatabase();
-            dbHelper.openDatabase();
-        }catch (SQLiteException e){
-            e.printStackTrace();
-        }
-        mainList = dbHelper.mainList(fromIntent);
-        adapter = new ArmyAdapter(mainList, getActivity(), mArmyRecyclerView);
-        mArmyRecyclerView.setAdapter(adapter);
-    }
-    private void populaterecyclerViewExternal(String fromIntent){
-        externalDbHelper = new DBHelper(getActivity());
-
-        try {
-            externalDbHelper.checkAndCopyDatabase();
-            externalDbHelper.openDatabase();
-        }catch (SQLiteException e){
-            e.printStackTrace();
-        }
-        mainList = externalDbHelper.mainList(fromIntent);
-        adapter = new ArmyAdapter(mainList, getActivity(), mArmyRecyclerView);
-        mArmyRecyclerView.setAdapter(adapter);
     }
     private void populaterecyclerView2(String fromIntent){
         dbHelper2 = new MainDBHelper2(getActivity());

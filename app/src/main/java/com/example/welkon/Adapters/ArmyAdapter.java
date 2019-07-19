@@ -66,7 +66,7 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         if (fragment2 == null) {
             fragment2 = new FragmentContainer();
             fm2.beginTransaction()
-                    .add(R.id.detail_fragment_container,fragment2)
+                    .replace(R.id.detail_fragment_container,fragment2)
                     .commit();
         }
 
@@ -82,7 +82,7 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
                 if (fragment2 == null) {
                     fragment2 = new FragmentContainer();
                     fm2.beginTransaction()
-                            .add(R.id.detail_fragment_container,fragment2)
+                            .replace(R.id.detail_fragment_container,fragment2)
                             .commit();
                 }else {
 
