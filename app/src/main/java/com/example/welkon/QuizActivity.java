@@ -1,6 +1,7 @@
 package com.example.welkon;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
@@ -12,8 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.welkon.Utils.MainDBHelper2;
+import com.example.welkon.quiz.QuizAnswer;
+import com.example.welkon.quiz.QuizQuestion;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
 
@@ -25,6 +31,12 @@ public class QuizActivity extends AppCompatActivity {
     TextView tvQuestion;
     TextView tvResult;
     int[] trueResult;
+
+    private MainDBHelper2 dbHelper2;
+    QuizAnswer qAnswer;
+    QuizQuestion qQuestion;
+    public static List<QuizQuestion> quizQuestionList;
+
     ArrayList<Integer> SelectedResult = new ArrayList<>();
     int selected[];
 
@@ -61,14 +73,24 @@ public class QuizActivity extends AppCompatActivity {
                         R.array.trueAnswers7,R.array.trueAnswers8,
                         R.array.trueAnswers9,R.array.trueAnswers10
                 };
+        //---------------------------------------------------------------
+
+        //---------------------------------------------------------------
 
         Intent intent = getIntent();
         String keyQuestion = intent.getStringExtra(KEY_FOR_NUMBER_OF_QUIZ);
         if (keyQuestion != null) {
             // получаем ресурс
             int key = Integer.parseInt(keyQuestion) - 1;
+
             question = getResources().getStringArray(numberOfAnswersId[key]);
-            tvQuestion.setText(numberOfQuestionId[key]);
+            //tvQuestion.setText(numberOfQuestionId[key]);
+
+            QuizQuestion quizQuestion = setQuestions(key);
+            String text = quizQuestion.getQuestion();
+            int int2 = quizQuestion.getNumberOfQR();
+            tvQuestion.setText(text);
+
             for (int i = 0; i < question.length; i++) {
                 questionArray.add(question[i]);
             }
@@ -131,5 +153,17 @@ public class QuizActivity extends AppCompatActivity {
                 tvResult.setText("Неправильный ответ");
             }
         }
+    }
+
+    private QuizQuestion setQuestions(int key){
+        dbHelper2 = new MainDBHelper2(this);
+
+        try {
+            dbHelper2.checkAndCopyDatabase();
+            dbHelper2.openDatabase();
+        }catch (SQLiteException e){
+            e.printStackTrace();
+        }
+        return dbHelper2.QOneQuestion(key);
     }
 }

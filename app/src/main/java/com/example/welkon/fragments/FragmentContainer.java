@@ -96,6 +96,8 @@ public class FragmentContainer extends Fragment {
         adapter = new GalleryAdapter(photoLinks, getActivity(), mRecyclerView);
         mRecyclerView.setAdapter(adapter);
 
+        dbHelper2.close();
+
     }
 
     public static List<String> GetLinkImages(String links){

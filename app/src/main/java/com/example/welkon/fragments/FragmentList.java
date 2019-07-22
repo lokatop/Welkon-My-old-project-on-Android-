@@ -58,5 +58,6 @@ public class FragmentList extends Fragment {
         mainList = dbHelper2.mainList(fromIntent);
         adapter = new ArmyAdapter(mainList, getActivity(), mArmyRecyclerView);
         mArmyRecyclerView.setAdapter(adapter);
+        dbHelper2.close();
     }
 }

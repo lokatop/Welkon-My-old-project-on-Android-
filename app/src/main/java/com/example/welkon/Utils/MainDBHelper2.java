@@ -6,12 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.welkon.models.Army;
+import com.example.welkon.quiz.QuizQuestion;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +28,7 @@ public class MainDBHelper2 extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "db2.sqlite";
     private static final int DATABASE_VERSION = 5;
+    //-------------------------------------------------------------------
     public static final String TABLE_NAME = "mytable";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_PERSON_TITLE = "title";
@@ -37,6 +37,19 @@ public class MainDBHelper2 extends SQLiteOpenHelper{
     public static final String COLUMN_PERSON_ALL_IMAGES = "allImages";
     public static final String COLUMN_PERSON_DESCRIPTION = "description";
     public static final String COLUMN_PERSON_GROUPNAME = "groupName";
+    //----------------------------------------------------------------------
+
+    //-------------------------------------------------------------------
+    public static final String COLUMN_NUMBER_OF_QR = "numberOfQR";
+    // -------------------------------------------------------------------
+    public static final String TABLE_NAME_QUIZ_QUESTION = "quizQuestion";
+    public static final String COLUMN_QUESTION = "question";
+    // -------------------------------------------------------------------
+    public static final String TABLE_NAME_QUIZ_ANSWER = "quizAnswer";
+    public static final String COLUMN_ANSWER = "answer";
+    public static final String COLUMN_RESULT = "result";
+    //-------------------------------------------------------------------
+
     private final Context myContext;
     private SQLiteDatabase myDatabase;
     String DBNAME = "db2.sqlite";
@@ -151,4 +164,33 @@ public class MainDBHelper2 extends SQLiteOpenHelper{
         return exampleMainList;
     }
 
+    public List<QuizQuestion> QQuestions(){
+        String query = "SELECT  * FROM " + TABLE_NAME_QUIZ_QUESTION;
+        List<QuizQuestion> personLinkedList = new LinkedList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(query, null);
+        QuizQuestion mainList;
+        if (cursor.moveToFirst()) {
+            do {
+                mainList = new QuizQuestion();
+                mainList.setNumberOfQR(cursor.getInt(cursor.getColumnIndex(COLUMN_NUMBER_OF_QR)));
+                mainList.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+                personLinkedList.add(mainList);
+            } while (cursor.moveToNext());
+        }
+        return personLinkedList;
+    }
+
+    public QuizQuestion QOneQuestion(int numberOfQR){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT  * FROM " + TABLE_NAME_QUIZ_QUESTION + " WHERE numberOfQR="+ numberOfQR;
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(query, null);
+        QuizQuestion exampleMainList = new QuizQuestion();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            exampleMainList.setNumberOfQR(cursor.getInt(cursor.getColumnIndex(COLUMN_NUMBER_OF_QR)));
+            exampleMainList.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
+        }
+        return exampleMainList;
+    }
 }
