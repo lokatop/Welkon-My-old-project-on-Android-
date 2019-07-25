@@ -31,6 +31,7 @@ public class AudioActivity extends AppCompatActivity implements MediaPlayer.OnPr
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
+        getSupportActionBar().hide();
 
 
         //---------Получаем данные из сканера
