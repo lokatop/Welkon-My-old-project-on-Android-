@@ -2,6 +2,8 @@ package com.example.welkon.Adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,18 +41,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        loadImageFromAsset(mLinks.get(position),holder.galleryImage, mContext);
+        loadImageFromData(mLinks.get(position),holder.galleryImage, mContext);
 
-/*
-        //listen to single view layout click
-        holder.galleryImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                mContext.startActivity(intent);
-            }
-        });
-*/
     }
 
     @Override
@@ -79,6 +71,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         catch(IOException ex) {
             return;
         }
+    }
+
+    public void loadImageFromData(String namePhoto, ImageView imageView1, Context context) {
+        String path = Environment.getExternalStorageDirectory().toString();
+        String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
+        imageView1.setImageURI(Uri.parse(imagePath));
     }
 
 

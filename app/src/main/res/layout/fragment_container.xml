@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrlContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:background="@color/cardview_light_background">
 
-    <TextView
-        android:id="@+id/title2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center_horizontal"
-        android:text="Название модели"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="36sp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+    <LinearLayout
+        android:id="@+id/LinLoy"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_margin="16dp" />
-
-    <TextView
-        android:id="@+id/subtitle2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:text="Мини описание"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/desc2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center_horizontal"
-        android:text="Описание"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_horizontal"
+            android:text="Название модели"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="36sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView2"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_margin="16dp" />
+
+        <TextView
+            android:id="@+id/subtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_horizontal"
+            android:text="Мини описание"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="24sp" />
+
+
+        <com.codesgood.views.JustifiedTextView
+            android:id="@+id/desc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Описание"
+            android:textAlignment="gravity"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="24sp"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

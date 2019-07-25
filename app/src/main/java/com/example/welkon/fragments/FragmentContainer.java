@@ -1,41 +1,37 @@
 package com.example.welkon.fragments;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.Adapters.GalleryAdapter;
 import com.example.welkon.R;
+import com.example.welkon.Utils.DBHelper;
 import com.example.welkon.Utils.MainDBHelper;
+import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.models.Army;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.welkon.Adapters.ArmyAdapter.FOR_UUID;
 import static com.example.welkon.Particular.UUID_INT;
 
 public class FragmentContainer extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private MainDBHelper dbHelper;
+    private MainDBHelper2 dbHelper2;
     private GalleryAdapter adapter;
     // В этом листе хранится
     public static List<Army> mainList;
@@ -49,6 +45,15 @@ public class FragmentContainer extends Fragment {
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_container,null);
+
+        ScrollView scrollView = (ScrollView)v.findViewById(R.id.scrlContainer);
+        //LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.LinLoy);
+
+
+        Drawable myImg = ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.embllem22);
+        myImg.setAlpha(60);
+        scrollView.setBackground(myImg);
+        //linearLayout.setBackground(myImg);
 
         //---------------------------------------
         //initialize the variables
@@ -72,41 +77,29 @@ public class FragmentContainer extends Fragment {
     }
 
     public void populaterecyclerView(int id){
-        dbHelper = new MainDBHelper(getActivity());
+        dbHelper2 = new MainDBHelper2(getActivity());
 
         try {
-            dbHelper.checkAndCopyDatabase();
-            dbHelper.openDatabase();
+            dbHelper2.checkAndCopyDatabase();
+            dbHelper2.openDatabase();
         }catch (SQLiteException e){
             e.printStackTrace();
         }
-        mainArmy = dbHelper.exMainList(id);
+        mainArmy = dbHelper2.exMainList(id);
 
         title.setText(mainArmy.getTitle());
         subTitle.setText(mainArmy.getSubtitle());
         description.setText(mainArmy.getDescription());
-        /*
-        String namePhoto = mainArmy.getImage();
-        loadImageFromAsset(namePhoto,imageView);
-        */
-
         String linksPhoto = mainArmy.getAllImage();
         List<String> photoLinks = GetLinkImages(linksPhoto);
 
         adapter = new GalleryAdapter(photoLinks, getActivity(), mRecyclerView);
         mRecyclerView.setAdapter(adapter);
+
+        dbHelper2.close();
+
     }
 
-    public void loadImageFromAsset(String namePhoto, ImageView imageView1) {
-        try {
-            InputStream ims = getActivity().getAssets().open(namePhoto+".jpg");
-            Drawable d = Drawable.createFromStream(ims, null);
-            imageView1.setImageDrawable(d);
-        }
-        catch(IOException ex) {
-            return;
-        }
-    }
     public static List<String> GetLinkImages(String links){
         List<String> temp = new ArrayList<String>();
         char[] charLinks = links.toCharArray();

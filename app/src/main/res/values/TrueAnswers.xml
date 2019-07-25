@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="trueAnswers1">
+        <item>1</item>
+    </integer-array>
+    <integer-array name="trueAnswers2">
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>11</item>
+    </integer-array>
+    <integer-array name="trueAnswers3">
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </integer-array>
+    <integer-array name="trueAnswers4">
+        <item>1</item>
+        <item>4</item>
+        <item>6</item>
+        <item>9</item>
+        <item>11</item>
+        <item>13</item>
+        <item>16</item>
+    </integer-array>
+    <integer-array name="trueAnswers5">
+        <item>1</item>
+    </integer-array>
+    <integer-array name="trueAnswers6">
+        <item>2</item>
+    </integer-array>
+    <integer-array name="trueAnswers7">
+        <item>1</item>
+    </integer-array>
+    <integer-array name="trueAnswers8">
+        <item>3</item>
+    </integer-array>
+    <integer-array name="trueAnswers9">
+        <item>2</item>
+    </integer-array>
+    <integer-array name="trueAnswers10">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+    </integer-array>
+</resources>
