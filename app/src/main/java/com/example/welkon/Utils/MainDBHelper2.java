@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.welkon.models.Army;
+import com.example.welkon.quiz.QuizAnswer;
 import com.example.welkon.quiz.QuizQuestion;
 
 import java.io.File;
@@ -192,5 +193,23 @@ public class MainDBHelper2 extends SQLiteOpenHelper{
             exampleMainList.setQuestion(cursor.getString(cursor.getColumnIndex(COLUMN_QUESTION)));
         }
         return exampleMainList;
+    }
+
+    public List<QuizAnswer> QAnswers(int numberOfQR){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT  * FROM " + TABLE_NAME_QUIZ_ANSWER + " WHERE numberOfQR="+ numberOfQR;
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(query, null);
+        List<QuizAnswer> personLinkedList = new LinkedList<>();
+        QuizAnswer mainList;
+        if (cursor.moveToFirst()) {
+            do {
+                mainList = new QuizAnswer();
+                mainList.setNumberOfQR(cursor.getInt(cursor.getColumnIndex(COLUMN_NUMBER_OF_QR)));
+                mainList.setAnswer(cursor.getString(cursor.getColumnIndex(COLUMN_ANSWER)));
+                mainList.setResult(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(COLUMN_RESULT))));
+                personLinkedList.add(mainList);
+            } while (cursor.moveToNext());
+        }
+        return personLinkedList;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.quiz.QuizAnswer;
@@ -25,22 +26,14 @@ import static com.example.welkon.BasicScan.KEY_FOR_NUMBER_OF_QUIZ;
 
 public class QuizActivity extends AppCompatActivity {
 
-    //private MyArrayAdapter mArrayAdapter;
     private ArrayList<String> questionArray = new ArrayList<>();
-    String[] question;
+    private ArrayList<Boolean> resArray = new ArrayList<>();
     TextView tvQuestion;
     TextView tvResult;
-    int[] trueResult;
 
     private MainDBHelper2 dbHelper2;
-    QuizAnswer qAnswer;
-    QuizQuestion qQuestion;
-    public static List<QuizQuestion> quizQuestionList;
-
-    ArrayList<Integer> SelectedResult = new ArrayList<>();
+    boolean[] checkedAnswers;
     int selected[];
-
-    int selectedTrue[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,28 +44,6 @@ public class QuizActivity extends AppCompatActivity {
         final ListView lvAnswers = (ListView) findViewById(R.id.lvAnswers);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         tvResult   = (TextView) findViewById(R.id.tvResult);
-
-
-        int[] numberOfAnswersId =
-                {R.array.answers1,R.array.answers2,
-                        R.array.answers3,R.array.answers4,
-                        R.array.answers5,R.array.answers6,
-                        R.array.answers7,R.array.answers8,
-                        R.array.answers9,R.array.answers10};
-        int[] numberOfQuestionId =
-                {R.string.question_1,R.string.question_2,
-                        R.string.question_3,R.string.question_4,
-                        R.string.question_5,R.string.question_6,
-                        R.string.question_7,R.string.question_8,
-                        R.string.question_9,R.string.question_10};
-        int[] numberOfTrueAnswersId =
-                {
-                        R.array.trueAnswers1,R.array.trueAnswers2,
-                        R.array.trueAnswers3,R.array.trueAnswers4,
-                        R.array.trueAnswers5,R.array.trueAnswers6,
-                        R.array.trueAnswers7,R.array.trueAnswers8,
-                        R.array.trueAnswers9,R.array.trueAnswers10
-                };
         //---------------------------------------------------------------
 
         //---------------------------------------------------------------
@@ -81,25 +52,32 @@ public class QuizActivity extends AppCompatActivity {
         String keyQuestion = intent.getStringExtra(KEY_FOR_NUMBER_OF_QUIZ);
         if (keyQuestion != null) {
             // получаем ресурс
-            int key = Integer.parseInt(keyQuestion) - 1;
+            int key = Integer.parseInt(keyQuestion);
 
-            question = getResources().getStringArray(numberOfAnswersId[key]);
-            //tvQuestion.setText(numberOfQuestionId[key]);
-
+            //------------------------------------------
             QuizQuestion quizQuestion = setQuestions(key);
             String text = quizQuestion.getQuestion();
-            int int2 = quizQuestion.getNumberOfQR();
             tvQuestion.setText(text);
+            //---------------------------------------------
 
-            for (int i = 0; i < question.length; i++) {
-                questionArray.add(question[i]);
+            //---------------------------------------------------------------
+            List<QuizAnswer> answerList = setQListAnswer(key);
+            resArray.clear();
+
+            for (int i = 0; i < answerList.size(); i++) {
+                questionArray.add(answerList.get(i).getAnswer());
+                resArray.add(answerList.get(i).isResult());
             }
-            trueResult = getResources().getIntArray(numberOfTrueAnswersId[key]);
+            //---------------------------------------------------------------
+
 
             lvAnswers.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             // создаем адаптер
             ArrayAdapter<String> adapter = new ArrayAdapter(this,
                     R.layout.simple_list_item_multiple_choice, questionArray);
+
+            checkedAnswers = new boolean[answerList.size()];
+            Arrays.fill(checkedAnswers,false);
 
             // устанавливаем для списка адаптер
             lvAnswers.setAdapter(adapter);
@@ -112,12 +90,16 @@ public class QuizActivity extends AppCompatActivity {
 
                     int k=0;
 
+
+
                     SparseBooleanArray sparseBooleanArray = lvAnswers.getCheckedItemPositions();
                     selected = new int[sparseBooleanArray.size()];
+
                     for (int i = 0; i < sparseBooleanArray.size(); i++) {
-                        if (sparseBooleanArray.valueAt(i)){
-                            selected[i] = sparseBooleanArray.keyAt(i)+1;
-                        }
+
+                        boolean value = sparseBooleanArray.valueAt(i);
+                        int kkey = sparseBooleanArray.keyAt(i);
+                        checkedAnswers[kkey] = value;
                     }
                 }
             });
@@ -128,26 +110,15 @@ public class QuizActivity extends AppCompatActivity {
 
     public void BtnCheck(View view) {
         if(selected != null){
-            //очищаем перед повторным использованием
-            SelectedResult.clear();
+            boolean[] trueFactResultBool = new boolean[resArray.size()];
 
-            //смотрим количество выбранных элементов(при 0 - false) и выбранные ответы записываем
-            //в другой ArrayList
-            for (int i = 0; i < selected.length;i++){
-                if(selected[i] != 0){SelectedResult.add(selected[i]);}
+            for (int i4 = 0;i4<resArray.size();i4++){
+                trueFactResultBool[i4] = resArray.get(i4);
             }
-
-            //создаем массив чтобы не писать лишнего и просто сравнить два массива int
-            int[] trueResFinal = new int[SelectedResult.size()];
-            int i = 0;
-            for (int ar: SelectedResult){
-                trueResFinal[i] = ar;
-                i++;
-            }
-            if (Arrays.equals(trueResult, trueResFinal)){
+            if (Arrays.equals(trueFactResultBool, checkedAnswers)){
 
                 tvResult.setText("Все правильно!");
-                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.size_text);
+                Animation animation = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.size_text);
                 tvResult.startAnimation(animation);
             }else {
                 tvResult.setText("Неправильный ответ");
@@ -165,5 +136,19 @@ public class QuizActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return dbHelper2.QOneQuestion(key);
+    }
+
+    private List<QuizAnswer> setQListAnswer(int key){
+        List<QuizAnswer> answers = new ArrayList<>();
+        dbHelper2 = new MainDBHelper2(this);
+
+        try {
+            dbHelper2.checkAndCopyDatabase();
+            dbHelper2.openDatabase();
+        }catch (SQLiteException e){
+            e.printStackTrace();
+        }
+        answers = dbHelper2.QAnswers(key);
+        return answers;
     }
 }

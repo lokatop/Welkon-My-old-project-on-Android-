@@ -1,8 +1,8 @@
 package com.example.welkon;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -42,8 +42,8 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(this, "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Contents = " + rawResult.getText() +
+         //       ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, QuizActivity.class);
         Intent intent2 = new Intent(this, VideoActivity.class);
@@ -66,7 +66,7 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
             intent2.putExtra(KEY_FOR_NUMBER_OF_QUIZ,result);
             startActivity(intent2);
         }
-        else {Toast.makeText(this,"Данный Qr код не поддерживается",Toast.LENGTH_SHORT).show();}
+        //else {Toast.makeText(this,"Данный Qr код не поддерживается",Toast.LENGTH_SHORT).show();}
 
         // Note:
         // * Wait 2 seconds to resume the preview.
@@ -78,7 +78,7 @@ public class BasicScan extends BaseScannerActivity implements ZXingScannerView.R
             public void run() {
                 mScannerView.resumeCameraPreview(BasicScan.this);
             }
-        }, 2000);
+        }, 1000);
     }
 
 
