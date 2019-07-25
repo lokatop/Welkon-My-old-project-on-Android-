@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 
 import com.example.welkon.R;
+import com.example.welkon.interfaces.IRecyclerViewClickListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,11 +24,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     private List<String> mLinks;
     private Context mContext;
     private RecyclerView mRecyclerV;
+    IRecyclerViewClickListener clickListener;
 
-    public GalleryAdapter(List<String> mLinks, Context mContext, RecyclerView mRecyclerV) {
+    public GalleryAdapter(List<String> mLinks, Context mContext, RecyclerView mRecyclerV,IRecyclerViewClickListener clickListener) {
         this.mLinks = mLinks;
         this.mContext = mContext;
         this.mRecyclerV = mRecyclerV;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -51,7 +54,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView galleryImage;
         public View layout;
@@ -59,17 +62,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             galleryImage= (ImageView)itemView.findViewById(R.id.allImage);
+            itemView.setOnClickListener(this);
         }
-    }
 
-    public void loadImageFromAsset(String namePhoto, ImageView imageView1, Context context) {
-        try {
-            InputStream ims = context.getAssets().open(namePhoto+".jpg");
-            Drawable d = Drawable.createFromStream(ims, null);
-            imageView1.setImageDrawable(d);
-        }
-        catch(IOException ex) {
-            return;
+        @Override
+        public void onClick(View v) {
+            clickListener.onClick(v,getAdapterPosition());
         }
     }
 

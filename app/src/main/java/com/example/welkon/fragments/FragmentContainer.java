@@ -1,5 +1,6 @@
 package com.example.welkon.fragments;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,13 +14,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.Adapters.GalleryAdapter;
+import com.example.welkon.FullScreenActivity;
 import com.example.welkon.R;
 import com.example.welkon.Utils.DBHelper;
 import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.Utils.MainDBHelper2;
+import com.example.welkon.interfaces.IRecyclerViewClickListener;
 import com.example.welkon.models.Army;
 
 import java.util.ArrayList;
@@ -92,8 +96,22 @@ public class FragmentContainer extends Fragment {
         description.setText(mainArmy.getDescription());
         String linksPhoto = mainArmy.getAllImage();
         List<String> photoLinks = GetLinkImages(linksPhoto);
+        final String photoLinksStr[] = photoLinks.toArray(new String[0]);
+//-----------------------------------------------------------------------------
+        final IRecyclerViewClickListener listener = new IRecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                //Toast.makeText(getActivity(),"click",Toast.LENGTH_SHORT).show();
 
-        adapter = new GalleryAdapter(photoLinks, getActivity(), mRecyclerView);
+
+                Intent i = new Intent(getActivity(), FullScreenActivity.class);
+                i.putExtra("IMAGES",photoLinksStr);
+                i.putExtra("POSITION",position);
+                startActivity(i);
+            }
+        };
+//-----------------------------------------------------------------------------
+        adapter = new GalleryAdapter(photoLinks, getActivity(), mRecyclerView,listener);
         mRecyclerView.setAdapter(adapter);
 
         dbHelper2.close();
