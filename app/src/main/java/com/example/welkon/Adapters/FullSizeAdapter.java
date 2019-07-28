@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import com.example.welkon.R;
 import com.example.welkon.Utils.HackyViewPager;
 
+import static com.example.welkon.Utils.SomeVoidsFromData.loadImageFromData;
+
 public class FullSizeAdapter extends PagerAdapter {
 
     Context context;
@@ -55,10 +57,5 @@ public class FullSizeAdapter extends PagerAdapter {
         HackyViewPager viewPager = (HackyViewPager)container;
         View v = (View)object;
         viewPager.removeView(v);
-    }
-    public void loadImageFromData(String namePhoto, ImageView imageView1) {
-        String path = Environment.getExternalStorageDirectory().toString();
-        String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
-        imageView1.setImageURI(Uri.parse(imagePath));
     }
 }

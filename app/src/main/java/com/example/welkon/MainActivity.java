@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private static final int PERMISSION_REQUEST_CODE = 100;
     private Class<?> mClss;
-    //private MainDBHelper dbHelper;
     private MainDBHelper2 dbHelper2;
 
     public Army mainList;

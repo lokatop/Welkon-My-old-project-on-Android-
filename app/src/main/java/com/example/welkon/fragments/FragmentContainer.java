@@ -11,17 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.Adapters.GalleryAdapter;
 import com.example.welkon.FullScreenActivity;
 import com.example.welkon.R;
-import com.example.welkon.Utils.DBHelper;
-import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.interfaces.IRecyclerViewClickListener;
 import com.example.welkon.models.Army;
@@ -30,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.welkon.Particular.UUID_INT;
+import static com.example.welkon.Utils.SomeVoidsFromData.GetLinkImages;
 
 public class FragmentContainer extends Fragment {
 
@@ -111,34 +107,12 @@ public class FragmentContainer extends Fragment {
             }
         };
 //-----------------------------------------------------------------------------
-        adapter = new GalleryAdapter(photoLinks, getActivity(), mRecyclerView,listener);
+        adapter = new GalleryAdapter(photoLinks, getActivity(), listener);
         mRecyclerView.setAdapter(adapter);
 
         dbHelper2.close();
 
     }
 
-    public static List<String> GetLinkImages(String links){
-        List<String> temp = new ArrayList<String>();
-        char[] charLinks = links.toCharArray();
-        char findСomma = 44;
-        int start =0;
-        for (int i = 0; i < charLinks.length; i++){
-            if (charLinks[i] == findСomma || i+1 == charLinks.length){
-                char[] dst;
-                if(i+1 == charLinks.length){
-                    dst=new char[i+1 - start];
-                    links.getChars(start, i+1, dst, 0);
-                }else {
-                    dst=new char[i - start];
-                    links.getChars(start, i, dst, 0);
-                }
-                links.getChars(start, i, dst, 0);
-                temp.add(String.valueOf(dst));
-                start = i+1;
-            }
-        }
-        return temp;
-    }
 
 }

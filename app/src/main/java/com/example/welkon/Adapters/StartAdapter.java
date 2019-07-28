@@ -15,23 +15,25 @@ import java.util.List;
 
 import static com.example.welkon.Utils.SomeVoidsFromData.loadImageFromData;
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
+public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> {
+
 
     private List<String> mLinks;
     private Context mContext;
     IRecyclerViewClickListener clickListener;
 
-    public GalleryAdapter(List<String> mLinks, Context mContext,IRecyclerViewClickListener clickListener) {
+    public StartAdapter(List<String> mLinks, Context mContext,IRecyclerViewClickListener clickListener){
         this.mLinks = mLinks;
         this.mContext = mContext;
         this.clickListener = clickListener;
+
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.single_item_photo,parent,false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        View v = inflater.inflate(R.layout.start_item,viewGroup,false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -39,14 +41,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         loadImageFromData(mLinks.get(position),holder.galleryImage);
-
     }
 
     @Override
     public int getItemCount() {
         return mLinks.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

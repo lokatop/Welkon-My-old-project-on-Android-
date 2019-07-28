@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.welkon.Adapters.ArmyAdapter;
 import com.example.welkon.R;
-import com.example.welkon.Utils.DBHelper;
-import com.example.welkon.Utils.MainDBHelper;
 import com.example.welkon.Utils.MainDBHelper2;
 import com.example.welkon.models.Army;
 
@@ -24,9 +22,7 @@ import static com.example.welkon.MainActivity.KEY_FOR_TEXT_FROM_BUTTON;
 public class FragmentList extends Fragment {
     private RecyclerView mArmyRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private MainDBHelper dbHelper;
     private MainDBHelper2 dbHelper2;
-    private DBHelper externalDbHelper;
     private ArmyAdapter adapter;
     // В этом листе хранится
     public static List<Army> mainList;

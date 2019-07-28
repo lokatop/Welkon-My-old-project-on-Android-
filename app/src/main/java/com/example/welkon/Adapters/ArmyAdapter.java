@@ -19,6 +19,8 @@ import com.example.welkon.models.Army;
 import com.example.welkon.R;
 import com.example.welkon.fragments.FragmentContainer;
 import static com.example.welkon.Particular.UUID_INT;
+import static com.example.welkon.Utils.SomeVoidsFromData.loadImageFromData;
+
 import java.util.List;
 
 
@@ -43,11 +45,6 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         ViewHolder vh = new ViewHolder(v,mCommicator);
         return vh;
     }
-    public void loadImageFromData(String namePhoto, ImageView imageView1, Context context) {
-        String path = Environment.getExternalStorageDirectory().toString();
-        String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
-        imageView1.setImageURI(Uri.parse(imagePath));
-    }
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         // - get element from your dataset at this position
@@ -58,7 +55,7 @@ public class ArmyAdapter extends RecyclerView.Adapter<ArmyAdapter.ViewHolder> {
         holder.mainSubtitleTxtV.setText(mainList.getSubtitle());
 
         String namePhoto = mainList.getImage();
-        loadImageFromData(namePhoto,holder.mainImageImgV, mContext);
+        loadImageFromData(namePhoto,holder.mainImageImgV);
 
         UUID_INT = mMainList.get(0).getId();
         FragmentManager fm2 = ((Particular) mContext).getSupportFragmentManager();
