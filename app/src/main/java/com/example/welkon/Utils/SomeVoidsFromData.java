@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.ImageView;
 
+import com.example.welkon.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,14 @@ public class SomeVoidsFromData {
         String path = Environment.getExternalStorageDirectory().toString();
         String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
         imageView1.setImageURI(Uri.parse(imagePath));
+    }
+    public static void loadImageFromData(String dir,String namePhoto, ImageView imageView1) {
+        String path = Environment.getExternalStorageDirectory().toString();
+        String imagePath = path + dir+namePhoto+".jpg";
+        imageView1.setImageURI(Uri.parse(imagePath));
+    }
+    public static void loadImageFromDrawable(int drawable, ImageView imageView1) {
+        imageView1.setImageResource(drawable);
     }
 
     public static List<String> GetLinkImages(String links){

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ic_launcher_background"
     android:orientation="vertical"
     tools:context=".StartActivity">
 
@@ -11,12 +12,12 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_margin="16dp" />
+        android:layout_height="wrap_content"
+        android:clipToPadding="false" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:srcCompat="@drawable/embllem22" />

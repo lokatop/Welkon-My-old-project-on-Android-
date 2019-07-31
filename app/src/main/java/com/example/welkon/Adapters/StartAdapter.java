@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.welkon.R;
 import com.example.welkon.interfaces.IRecyclerViewClickListener;
@@ -14,16 +15,19 @@ import com.example.welkon.interfaces.IRecyclerViewClickListener;
 import java.util.List;
 
 import static com.example.welkon.Utils.SomeVoidsFromData.loadImageFromData;
+import static com.example.welkon.Utils.SomeVoidsFromData.loadImageFromDrawable;
 
 public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> {
 
 
-    private List<String> mLinks;
+    private List<Integer> mLinks;
+    private List<String> mLinksTv;
     private Context mContext;
     IRecyclerViewClickListener clickListener;
 
-    public StartAdapter(List<String> mLinks, Context mContext,IRecyclerViewClickListener clickListener){
+    public StartAdapter(List<Integer> mLinks, List<String> SCHEMES_TEXT, Context mContext, IRecyclerViewClickListener clickListener){
         this.mLinks = mLinks;
+        this.mLinksTv = SCHEMES_TEXT;
         this.mContext = mContext;
         this.clickListener = clickListener;
 
@@ -40,7 +44,9 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        loadImageFromData(mLinks.get(position),holder.galleryImage);
+        loadImageFromDrawable(mLinks.get(position),holder.galleryImage);
+        holder.tvStart.setText(mLinksTv.get(position));
+
     }
 
     @Override
@@ -51,17 +57,22 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView galleryImage;
+        public TextView tvStart;
         public View layout;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            galleryImage= (ImageView)itemView.findViewById(R.id.allImage);
+            galleryImage= (ImageView)itemView.findViewById(R.id.imageStartActivity);
+            tvStart = (TextView)itemView.findViewById(R.id.tvStartItem);
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View v) {
             clickListener.onClick(v,getAdapterPosition());
         }
     }
+
+
 }
