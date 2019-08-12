@@ -41,7 +41,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        SCHEMES.add(R.drawable.shm3);SCHEMES_TEXT.add("макет УС КП армии и СССР");
+        SCHEMES.add(R.drawable.shm3);SCHEMES_TEXT.add("макет УС КП армии и мбср");
         SCHEMES.add(R.drawable.shm1);SCHEMES_TEXT.add("макет УС КП армии 1943 г.");
         SCHEMES.add(R.drawable.shm2);SCHEMES_TEXT.add("макет модульного ПППУ");
         SCHEMES.add(R.drawable.shm4);SCHEMES_TEXT.add("макет УС КНП мсб");
